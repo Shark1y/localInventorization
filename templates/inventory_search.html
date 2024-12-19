@@ -3,7 +3,64 @@
 {%block title%}Inventory Page{%endblock%}
 
 {%block content%}
-<h1>This is inventory search page</h1>
+<h1 class="welcome-sign">This is inventory search page</h1>
+
+<!-- Search Form -->
+<div class="search-form d-flex justify-content-center ">
+    <form method="GET" action="{{ url_for('inventory_search') }}" class="form-inline mb-4">
+        <input type="text" name="query" class="form-control" placeholder="Search by title or inventory reference" value="{{ query }}">
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+</div>
+<!-- Display Search Results -->
+<div class="container inventory-showcase">
+    <div class="row">
+        {% if items %}
+            {% for item in items %}
+                <div class="col-md-4 mb-4">
+                    <div class="card" style="width: 25rem;">
+                        <div class="card-body">
+                            <img class="card-img-top" src="{{ item.image }}" alt="Image for {{ item.title }}" onerror="this.style.display='none'">
+                            <h5 class="card-title">{{ item.title }}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Inventory Reference: {{ item.invRef }}</h6>
+                            <p class="card-text">Selling for: {{ item.price }}$</p>
+                            <button class="btn btn-primary" onclick="deleteItem({{ item.pid }})">Delete</button>
+                            <button class="btn btn-primary">
+                                <a href="{{ url_for('details', pid=item.pid) }}" style="text-decoration: none; color: inherit;">Details</a>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No items found matching your search.</p>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+    document.getElementById('itemForm').addEventListener('submit', function(event) {
+        document.getElementById('submitButton').disabled = true; // Disable submit button to prevent double submission
+    });
+</script>
+
+<script type="text/javascript">
+    function deleteItem(pid) {
+        fetch('{{url_for("delete", pid=pid)}}' + pid, {
+            method: 'DELETE'
+        }).then(response => {
+            if (response.ok){
+                window.location.reload()
+            } else {
+                console.error('Failed to delete item')
+            }
+        }) 
+            .catch(error => {
+                console.error('Error fetching', error)
+            })
+    }
+
+</script>
 
 
 {%endblock%}

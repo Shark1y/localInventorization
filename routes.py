@@ -10,8 +10,20 @@ def register_routes(app, db):
         return render_template('index.html' )
     
     @app.route('/inventory_search', methods=['GET','POST'])
-    def inventory_search():    
-        return render_template('inventory_search.html' )
+    def inventory_search():   
+        query = request.args.get('query', '')  # Get search query from URL
+    
+        if query:
+            # Search by inventory reference or title (case-insensitive search)
+            items = Item.query.filter(
+                (Item.invRef.ilike(f'%{query}%')) |  # Search by inventory reference
+                (Item.title.ilike(f'%{query}%'))    # Search by title
+            ).all()
+        else:
+            # If no query, just show all items
+            items = Item.query.all()
+
+        return render_template('inventory_search.html', items=items)
         
     @app.route('/inventory', methods=['GET', 'POST'])
     def inventory():
