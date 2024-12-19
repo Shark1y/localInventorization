@@ -25,6 +25,7 @@
 .card-img-top {
     height: 300px; /* Locks the height of the image */
     object-fit: cover; /* Ensures the image fits within the specified height without distortion */
+    height: auto;
 }
 
 .card-body {

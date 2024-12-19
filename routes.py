@@ -106,7 +106,14 @@ def register_routes(app, db):
 
         return render_template('index.html', items=items)
     
-    @app.route('/details/<pid>')
+    @app.route('/details/<int:pid>')
     def details(pid):
-        item = Item.query.filter(Item.pid == pid).first()
+        # Fetch the item from the database by its primary key (pid)
+        item = Item.query.get(pid)
+        
+        # If item doesn't exist, redirect or show an error
+        if item is None:
+            return "Item not found", 404
+        
+        # Pass the item to the template
         return render_template('details.html', item=item)

@@ -1,15 +1,17 @@
 {% extends "base.html" %}
 
-{%block title%}Details{%endblock%}
+{% block title %}Details about the item{% endblock %}
 
-{%block content%}
-
-<h1>Item title: {{item.title}}</h1>
-<p>Inventory reference #: {{item.invRef}}</p>
-<p>Price: {{item.price}}</p>
-
-<button>
-    <a href="{{url_for('inventory')}}">Back</a>
-</button>
-
-{%endblock%}
+{% block content %}
+<div class="container my-5">
+    <div class="card" style="width: 25rem;">
+        <img class="card-img-top" src="{{ item.image }}" alt="Image for {{ item.title }}" onerror="this.style.display='none'">
+        <div class="card-body">
+            <h5 class="card-title">{{ item.title }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Inventory Reference: {{ item.invRef }}</h6>
+            <p class="card-text">Price: ${{ item.price }}</p>
+            <a href="{{ url_for('inventory') }}" class="btn btn-primary">Back to Inventory</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
