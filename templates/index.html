@@ -4,8 +4,11 @@
 
 {%block content%}
 <h1 class="welcome-sign">Welcome!</h1>
-<h2 class="welcome-sign">Inventory link:</h2>
+<h2 class="welcome-sign">Quick Links:</h2>
+<div class="home-buttons d-flex justify-content-center">
+    <a class="btn btn-primary btn-lg inventory-welcoming-link" href="{{ url_for('inventory') }}">Inventory</a>
+    <a class="btn btn-primary btn-lg inventory-welcoming-link" href="{{ url_for('inventory_search') }}">Inventory Search</a>
+</div>
 
-<a class="btn btn-primary inventory-welcoming-link" href="{{ url_for('inventory') }}">Inventory</a>
 
 {%endblock%}

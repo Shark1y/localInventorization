@@ -15,7 +15,7 @@
 }
 
 .card {
-    height: 500px; /* Lock the height of the card */
+    height: 525px; /* Lock the height of the card */
     display: flex;
     flex-direction: column; /* Ensures proper alignment of content */
     justify-content: space-between; /* Distributes content evenly */
@@ -45,4 +45,14 @@
 .search-form{
     padding:35px;
     align-content: center;
+}
+
+.home-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 40px;  /* Adjust the value to control the space between buttons */
+}
+
+.card-title{
+    padding-top: 15px;
 }

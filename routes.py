@@ -2,7 +2,30 @@ from flask import render_template, request, redirect, url_for, flash
 from werkzeug.utils import secure_filename
 import os
 from models import Item
+from PIL import Image, ExifTags
 from app import allowed_file
+
+def compress_image(image_path):
+    with Image.open(image_path) as img:
+        try:
+            exif = img._getexif()
+            if exif is not None:
+                for tag, value in exif.items():
+                    if ExifTags.TAGS.get(tag) == 'Orientation':
+                        if value == 3:
+                            img = img.rotate(180, expand=True)
+                        elif value == 6:
+                            img = img.rotate(270, expand=True)
+                        elif value == 8:
+                            img = img.rotate(90, expand=True)
+                        break
+        except (AttributeError, KeyError, IndexError):
+            # No EXIF data or EXIF is not available, so we skip
+            pass
+
+        img = img.convert('RGB')  # Ensure the image is in RGB mode (for .jpg compression)
+        img.thumbnail((800, 800))  # Resize the image (maximum size 800x800px)
+        img.save(image_path, quality=85, optimize=True) 
 
 def register_routes(app, db):
     @app.route('/', methods=['GET','POST'])
@@ -23,7 +46,7 @@ def register_routes(app, db):
             # If no query, just show all items
             items = Item.query.all()
 
-        return render_template('inventory_search.html', items=items)
+        return render_template('inventory_search.html',items=items)
         
     @app.route('/inventory', methods=['GET', 'POST'])
     def inventory():
@@ -47,6 +70,8 @@ def register_routes(app, db):
                 filename = secure_filename(image.filename)
                 image.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
                 image_filename = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+                compress_image(image_filename)
+
             else:
             # Default image
                 image_filename = "static/img/no_image.png"
