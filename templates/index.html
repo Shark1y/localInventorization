@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{%block title%}Inventory Page{%endblock%}
+
+{%block content%}
+<h1 class="welcome-sign">Welcome!</h1>
+<h2 class="welcome-sign">Inventory link:</h2>
+
+<a class="btn btn-primary inventory-welcoming-link" href="{{ url_for('inventory') }}">Inventory</a>
+
+{%endblock%}

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{%block title%}Details{%endblock%}
+
+{%block content%}
+
+<h1>Item title: {{item.title}}</h1>
+<p>Inventory reference #: {{item.invRef}}</p>
+<p>Price: {{item.price}}</p>
+
+<button>
+    <a href="{{url_for('inventory')}}">Back</a>
+</button>
+
+{%endblock%}

@@ -1,0 +1,43 @@
+#itemForm {
+    border: 50px; /* Black border with 50px width */
+    padding: 20px;  /* Optional: Add some padding inside the form */
+    margin: 20px;   /* Optional: Add margin around the form */
+    border-radius: 10px; /* Optional: Softened corners */
+}
+
+.inventory-greeting {
+    padding-top: 15px;
+    text-align: center;
+}
+
+.inventory-showcase {
+    padding:35px;
+}
+
+.card {
+    height: 500px; /* Lock the height of the card */
+    display: flex;
+    flex-direction: column; /* Ensures proper alignment of content */
+    justify-content: space-between; /* Distributes content evenly */
+    overflow: hidden; /* Prevents overflow issues */
+}
+
+.card-img-top {
+    height: 300px; /* Locks the height of the image */
+    object-fit: cover; /* Ensures the image fits within the specified height without distortion */
+}
+
+.card-body {
+    flex-grow: 1; /* Makes the body content grow to fill the space */
+    text-align: center; /* Optional: Aligns content in the center */
+}
+
+.inventory-welcoming-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.welcome-sign {
+    padding-top: 15px;
+    text-align: center;
+}
