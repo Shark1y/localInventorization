@@ -8,6 +8,7 @@ class Item(db.Model):
     invRef = db.Column(db.Text, nullable=False)
     title = db.Column(db.Text, nullable=False)
     price = db.Column(db.Integer, nullable=False)
+    condition = db.Column(db.Text, nullable=False)
     image = db.Column(db.String(255), default='static/img/no_picture.png', nullable=True)
     
     def __repr__(self):

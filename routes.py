@@ -8,6 +8,10 @@ def register_routes(app, db):
     @app.route('/', methods=['GET','POST'])
     def index():    
         return render_template('index.html' )
+    
+    @app.route('/inventory_search', methods=['GET','POST'])
+    def inventory_search():    
+        return render_template('inventory_search.html' )
         
     @app.route('/inventory', methods=['GET', 'POST'])
     def inventory():
@@ -20,6 +24,7 @@ def register_routes(app, db):
             title = request.form.get('title')
             price = request.form.get('price')
             image = request.files.get('image') 
+            condition = request.form.get('condition')
 
             if not (title and price and invRef):
                 flash("All fields are required!", "error")
@@ -35,7 +40,7 @@ def register_routes(app, db):
                 image_filename = "static/img/no_image.png"
 
             # Save the item to the database
-            item = Item(invRef=invRef, title=title, price=price, image=image_filename)
+            item = Item(invRef=invRef, condition=condition, title=title, price=price, image=image_filename)
             db.session.add(item)
             db.session.commit()
 
@@ -44,6 +49,18 @@ def register_routes(app, db):
     
     @app.route('/delete/<pid>', methods=['DELETE'])
     def delete(pid):
+        item = Item.query.get(pid)
+
+        image_path = item.image
+
+        if image_path and image_path != 'static/img/no_image.png':
+            try:
+                # Check if the file exists, then delete it
+                if os.path.exists(image_path):
+                    os.remove(image_path)
+            except Exception as e:
+                print(f"Error deleting image: {e}")
+
         Item.query.filter(Item.pid == pid).delete()
 
         db.session.commit()
