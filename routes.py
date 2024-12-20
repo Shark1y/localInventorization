@@ -117,3 +117,27 @@ def register_routes(app, db):
         
         # Pass the item to the template
         return render_template('details.html', item=item)
+    
+    @app.route('/edit_item/<int:item_id>', methods=['GET', 'POST'])
+    def edit_item(item_id):
+        # Retrieve the specific item
+        item = Item.query.get_or_404(item_id)
+
+        if request.method == 'POST':
+            # Update item details from form submission
+            item.title = request.form['title']
+            item.price = float(request.form['price'])
+            item.invRef = request.form['invRef']
+            item.condition = request.form['condition']
+
+            try:
+                db.session.commit()
+                flash('Item updated successfully!', 'success')
+                return redirect(url_for('inventory'))  # Redirects to inventory page
+            except Exception as e:
+                db.session.rollback()
+                flash(f'Error updating item: {str(e)}', 'danger')
+
+        # Render edit form with existing item data
+        return redirect(url_for('inventory'))
+

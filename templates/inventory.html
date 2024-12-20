@@ -24,7 +24,7 @@
             <option value="Loose">Loose</option>
         </select>
 
-        <input type="submit" id="submitButton" class="btn btn-primary" value="Add Item">
+        <input type="submit" id="submitButton" class="btn btn-success" value="Add Item">
     </div>
 </form>
 
@@ -41,8 +41,8 @@
                         <h6 class="text-muted">{{item.condition}}</h6>
                         <h6 class="card-subtitle mb-2 text-muted">Inventory Reference: {{ item.invRef }}</h6>
                         <p class="card-text">Selling for: {{ item.price }}$</p>
-                        <button class="btn btn-primary" onclick="deleteItem({{item.pid}})">Delete</button>
-                        <a href="{{ url_for('details', pid=item.pid) }}" class="btn btn-primary">Details</a>
+                        <button class="btn btn-danger" onclick="deleteItem({{item.pid}})">Delete</button>
+                        <a href="{{ url_for('details', pid=item.pid) }}" class="btn btn-secondary">Details</a>
                     </div>
                 </div>
             </div>
