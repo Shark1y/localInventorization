@@ -15,21 +15,15 @@
 }
 
 .card {
-    height: 525px; /* Lock the height of the card */
+    height: auto; /* Lock the height of the card */
     display: flex;
     flex-direction: column; /* Ensures proper alignment of content */
     justify-content: space-between; /* Distributes content evenly */
     overflow: hidden; /* Prevents overflow issues */
 }
 
-.card-img-top {
-    height: 300px; /* Locks the height of the image */
-    object-fit: cover; /* Ensures the image fits within the specified height without distortion */
-    height: auto;
-}
-
 .card-body {
-    flex-grow: 1; /* Makes the body content grow to fill the space */
+    height: auto;
     text-align: center; /* Optional: Aligns content in the center */
 }
 
@@ -54,6 +48,9 @@
     gap: 40px;  /* Adjust the value to control the space between buttons */
 }
 
-.card-title{
-    padding-top: 15px;
+.details-card{
+    display: flex;
+    justify-content: center;
+    margin: 50px;
+    gap: 50px;
 }

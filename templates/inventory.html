@@ -35,16 +35,13 @@
         {% for item in items %}
             <div class="col-md-4 mb-4">
                 <div class="card" style="width: 100%;">
-
-
-                    
                     <div class="card-body">
                         <img class="card-img-top" src="{{ item.image }}" alt="Image for {{ item.title }}" onerror="this.style.display='none'">
                         <h5 class="card-title">{{ item.title }}</h5>
                         <h6 class="text-muted">{{item.condition}}</h6>
                         <h6 class="card-subtitle mb-2 text-muted">Inventory Reference: {{ item.invRef }}</h6>
                         <p class="card-text">Selling for: {{ item.price }}$</p>
-                        <button class="btn btn-primary" onclick="deleteItem({{ item.pid }})">Delete</button>
+                        <button class="btn btn-primary" onclick="deleteItem({{item.pid}})">Delete</button>
                         <a href="{{ url_for('details', pid=item.pid) }}" class="btn btn-primary">Details</a>
                     </div>
                 </div>
@@ -56,7 +53,7 @@
 
 <script>
     document.getElementById('itemForm').addEventListener('submit', function(event) {
-        document.getElementById('submitButton').disabled = true; // Disable submit button to prevent double submission
+        document.getElementById('submitButton').disabled = true; 
     });
 </script>
 

@@ -3,15 +3,63 @@
 {% block title %}Details about the item{% endblock %}
 
 {% block content %}
-<div class="container my-5">
-    <div class="card" style="width: 25rem;">
-        <img class="card-img-top" src="{{ item.image }}" alt="Image for {{ item.title }}" onerror="this.style.display='none'">
-        <div class="card-body">
-            <h5 class="card-title">{{ item.title }}</h5>
-            <h6 class="card-subtitle mb-2 text-muted">Inventory Reference: {{ item.invRef }}</h6>
-            <p class="card-text">Price: ${{ item.price }}</p>
-            <a href="{{ url_for('inventory') }}" class="btn btn-primary">Back to Inventory</a>
-        </div>
+<div class="details-card">
+    
+    <div class="item-details">
+        <img class="details-image" src="/{{item.image}}" alt="Image for {{ item.title }}" class="card-img-top">
+        <h2 class="card-title">Title: {{ item.title }}</h2>
+        <h3>Current stated condition: {{item.condition}}</h3>
+        <h3 class="card-subtitle mb-2 text-muted">Current Inventory Reference: {{ item.invRef }}</h3>
+        <h3 class="card-subtitle mb-2 text-muted">Selling for: {{ item.price }}$</h3>
+        <button class="btn btn-primary" onclick="deleteItem({{item.pid}})">Delete</button>
+        <a class="btn btn-primary" href="{{ url_for('inventory') }}">Back</a>
     </div>
+
+    <div class="details-edit-section">
+        <h1>Edit Item</h1>
+            <div class="form-group">
+                <small class="text-muted">Item title</small>
+                <input type="text" class="form-control" name="title" value="{{item.title}}" required="required"><br/>
+                
+                <small class="text-muted">Selling price</small>
+                <input type="number" class="form-control" name="price" value="{{item.price}}" required="required"><br/>
+                
+                <small class="text-muted">Internal Inventory Number</small>
+                <input type="text" class="form-control" name="invRef" value="{{item.invRef}}" required="required"><br/>
+                
+                <select class="form-select" value="{{item.condition}}" name="condition" aria-label="item condition select">
+                    <option value="New">New, Sealed</option>
+                    <option value="CIB">CIB</option>
+                    <option value="Loose">Loose</option>
+                </select>
+                <buttono class="btn btn-primary">Edit Item</buttoon>
+            </div>
+    </div>
+
 </div>
+
+<script>
+    document.getElementById('itemForm').addEventListener('submit', function(event) {
+        document.getElementById('submitButton').disabled = true; // Disable submit button to prevent double submission
+    });
+</script>
+
+
+<script type="text/javascript">
+    function deleteItem(pid) {
+        fetch('{{url_for("delete", pid=pid)}}' + pid, {
+            method: 'DELETE'
+        }).then(response => {
+            if (response.ok){
+                window.location.reload()
+            } else {
+                console.error('Failed to delete item')
+            }
+        }) 
+            .catch(error => {
+                console.error('Error fetching', error)
+            })
+    }
+</script>
+
 {% endblock %}

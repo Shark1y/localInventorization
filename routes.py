@@ -110,10 +110,10 @@ def register_routes(app, db):
     def details(pid):
         # Fetch the item from the database by its primary key (pid)
         item = Item.query.get(pid)
-        
+
         # If item doesn't exist, redirect or show an error
         if item is None:
-            return "Item not found", 404
+            return redirect(url_for('inventory'))
         
         # Pass the item to the template
         return render_template('details.html', item=item)
