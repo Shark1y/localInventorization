@@ -1,7 +1,8 @@
 from flask import render_template, request, redirect, url_for, flash
+from flask_login import login_user, logout_user, current_user, login_required
 from werkzeug.utils import secure_filename
 import os
-from models import Item
+from models import Item, User
 from PIL import Image, ExifTags
 from app import allowed_file
 
@@ -27,12 +28,54 @@ def compress_image(image_path):
         img.thumbnail((800, 800))  # Resize the image (maximum size 800x800px)
         img.save(image_path, quality=85, optimize=True) 
 
-def register_routes(app, db):
-    @app.route('/', methods=['GET','POST'])
+def register_routes(app, db, bcrypt):
+    @app.route('/')
     def index():    
+        
+
         return render_template('index.html' )
     
+    @app.route('/register', methods=['GET', 'POST'])
+    def register():
+        if request.method == 'GET':
+            return render_template('register.html')        
+        elif request.method == 'POST':
+            username = request.form.get('username')           
+            password = request.form.get('password')  
+
+            hashed_password = bcrypt.generate_password_hash(password)
+
+            user = User(username=username, password=hashed_password)
+
+            db.session.add(user)
+
+            db.session.commit()
+            return redirect(url_for('index'))
+    
+
+    @app.route('/login', methods=['GET', 'POST'])
+    def login():
+        if request.method == 'GET':
+            return render_template('login.html')        
+        elif request.method == 'POST':
+            username = request.form.get('username')           
+            password = request.form.get('password')  
+
+            user = User.query.filter(User.username == username).first()
+
+            if bcrypt.check_password_hash(user.password, password):
+                login_user(user)
+                return redirect(url_for('index'))
+            else:
+                return 'Failed'
+
+    @app.route('/logout')
+    def logout():
+        logout_user()
+        return redirect(url_for('login'))    
+    
     @app.route('/inventory_search', methods=['GET','POST'])
+    @login_required
     def inventory_search():   
         query = request.args.get('query', '')  # Get search query from URL
     
@@ -49,6 +92,7 @@ def register_routes(app, db):
         return render_template('inventory_search.html',items=items)
         
     @app.route('/inventory', methods=['GET', 'POST'])
+    @login_required
     def inventory():
         if request.method == 'GET':
             items = Item.query.all()
@@ -85,6 +129,7 @@ def register_routes(app, db):
             return redirect(url_for('inventory'))
     
     @app.route('/delete/<pid>', methods=['DELETE'])
+    @login_required
     def delete(pid):
         item = Item.query.get(pid)
 
@@ -107,6 +152,7 @@ def register_routes(app, db):
         return render_template('index.html', items=items)
     
     @app.route('/details/<int:pid>')
+    @login_required
     def details(pid):
         # Fetch the item from the database by its primary key (pid)
         item = Item.query.get(pid)
@@ -119,6 +165,7 @@ def register_routes(app, db):
         return render_template('details.html', item=item)
     
     @app.route('/edit_item/<int:item_id>', methods=['GET', 'POST'])
+    @login_required
     def edit_item(item_id):
         # Retrieve the specific item
         item = Item.query.get_or_404(item_id)
@@ -141,3 +188,4 @@ def register_routes(app, db):
         # Render edit form with existing item data
         return redirect(url_for('inventory'))
 
+    

@@ -1,6 +1,9 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from flask_login import LoginManager
+from flask_bcrypt import Bcrypt
+from flask import redirect, url_for
 import os
 
 UPLOAD_FOLDER = 'static/img'  # Define where to save uploaded files
@@ -16,10 +19,27 @@ def create_app():
 
     db.init_app(app)
 
+    login_manager = LoginManager()
+    login_manager.init_app(app)
+
+    from models import User
+
+    @login_manager.user_loader    
+    def load_user(uid):
+        return User.query.get(uid)
+    
+    @login_manager.unauthorized_handler
+    def unauthorized_callback():
+        return redirect(url_for('index'))
+
+    bcrypt = Bcrypt(app)
+
     from routes import register_routes
-    register_routes(app, db)
+    register_routes(app, db, bcrypt)
 
     migrate = Migrate(app, db)
+
+
     
     @app.before_request
     def create_tables_and_add_placeholder():

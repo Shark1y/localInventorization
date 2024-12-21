@@ -53,3 +53,7 @@
     margin: 50px;
     gap: 50px;
 }
+
+.nav-user-buttons h5 {
+    color: indianred;
+}
