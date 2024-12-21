@@ -57,3 +57,9 @@
 .nav-user-buttons h5 {
     color: indianred;
 }
+
+.login-form{
+    padding: 30px;
+    width: 40%;
+    margin: auto;
+}

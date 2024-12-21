@@ -42,15 +42,18 @@ def register_routes(app, db, bcrypt):
         elif request.method == 'POST':
             username = request.form.get('username')           
             password = request.form.get('password')  
+            second_password = request.form.get('password-confirm')
+            if (password == second_password):
+                hashed_password = bcrypt.generate_password_hash(password)
 
-            hashed_password = bcrypt.generate_password_hash(password)
+                user = User(username=username, password=hashed_password)
 
-            user = User(username=username, password=hashed_password)
+                db.session.add(user)
 
-            db.session.add(user)
-
-            db.session.commit()
-            return redirect(url_for('index'))
+                db.session.commit()
+                return redirect(url_for('index'))
+            else:
+                return 'Passwords don''t match'
     
 
     @app.route('/login', methods=['GET', 'POST'])
