@@ -28,8 +28,9 @@
                             <h6 class="text-muted">{{item.condition}}</h6>
                             <h6 class="card-subtitle mb-2 text-muted">Inventory Reference: {{ item.invRef }}</h6>
                             <p class="card-text">Selling for: {{ item.price }}$</p>
-                            <button class="btn btn-primary" onclick="deleteItem({{ item.pid }})">Delete</button>
-                            <a href="{{ url_for('details', pid=item.pid) }}" class="btn btn-primary">Details</a>
+                            <p class="card-text">Status: {{item.status}}</p>
+                            <button class="btn btn-danger" onclick="deleteItem({{ item.pid }})">Delete</button>
+                            <a href="{{ url_for('details', pid=item.pid) }}" class="btn btn-secondary">Details</a>
                         </div>
                     </div>
                 </div>

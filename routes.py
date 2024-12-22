@@ -106,6 +106,7 @@ def register_routes(app, db, bcrypt):
             title = request.form.get('title')
             price = request.form.get('price')
             image = request.files.get('image') 
+            status = request.form.get('status')
             condition = request.form.get('condition')
 
             if not (title and price and invRef):
@@ -124,7 +125,7 @@ def register_routes(app, db, bcrypt):
                 image_filename = "static/img/no_image.png"
 
             # Save the item to the database
-            item = Item(invRef=invRef, condition=condition, title=title, price=price, image=image_filename)
+            item = Item(invRef=invRef, condition=condition, status=status, title=title, price=price, image=image_filename)
             db.session.add(item)
             db.session.commit()
 
@@ -179,6 +180,7 @@ def register_routes(app, db, bcrypt):
             item.price = float(request.form['price'])
             item.invRef = request.form['invRef']
             item.condition = request.form['condition']
+            item.status = request.form['status']
 
             try:
                 db.session.commit()

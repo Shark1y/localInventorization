@@ -18,6 +18,12 @@
          <small class="text-muted">Internal Inventory Number for future distinguishing</small>
         <input type="text" class="form-control" name="invRef" placeholder="Inventory Reference" required="required"><br/>
         
+        <select class="form-select" name="status" aria-label="item status select">
+            <option value="In stock">In Stock</option>
+            <option value="Sold">Sold</option>
+            <option value="On hold">On Hold</option>
+        </select>
+
         <select class="form-select" name="condition" aria-label="item condition select">
             <option value="New">New, Sealed</option>
             <option value="CIB">CIB</option>
@@ -41,6 +47,7 @@
                         <h6 class="text-muted">{{item.condition}}</h6>
                         <h6 class="card-subtitle mb-2 text-muted">Inventory Reference: {{ item.invRef }}</h6>
                         <p class="card-text">Selling for: {{ item.price }}$</p>
+                        <p class="card-text">Status: {{item.status}}</p>
                         <button class="btn btn-danger" onclick="deleteItem({{item.pid}})">Delete</button>
                         <a href="{{ url_for('details', pid=item.pid) }}" class="btn btn-secondary">Details</a>
                     </div>

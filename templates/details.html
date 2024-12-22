@@ -27,6 +27,12 @@
                     <small class="text-muted">Internal Inventory Number</small>
                     <input type="text" class="form-control" name="invRef" value="{{item.invRef}}" required="required"><br/>
                     
+                    <select class="form-select" name="status" aria-label="item status select">
+                        <option value="In stock">In Stock</option>
+                        <option value="Sold">Sold</option>
+                        <option value="On hold">On Hold</option>
+                    </select>
+
                     <select class="form-select" value="{{item.condition}}" name="condition" aria-label="item condition select">
                         <option value="New">New, Sealed</option>
                         <option value="CIB">CIB</option>
