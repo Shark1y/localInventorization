@@ -1,4 +1,5 @@
-Due to my hobby of game collecting and trading, I ran into a problem of inventorization. 
+Due to my hobby of game collecting and trading, I ran into a problem of inventorization. Some games are sitting in the bubble wrap to preserve them for later grading/tradng. Some are just too valuable and need to be sold. Getting a SQL database is good, however interface is not intuitive. Getting something in the cloud is convinitent, yet I don't like sharing anything with someone as well as pictures and prices. 
+
 Paying money for my basic needs is not feasible, so creating my own solution was the choice. 
 
 The system is very basic and allows you to inventory anything based on the inventory references you decide on. 
