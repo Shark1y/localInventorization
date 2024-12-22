@@ -1,9 +1,10 @@
+<!-- Individual item details page-->
 {% extends "base.html" %}
 
 {% block title %}Details about the item{% endblock %}
 
 {% block content %}
-<div class="details-card">
+<div class="details-card"> <!-- Individual item details-->
     
     <div class="item-details">
         <img class="details-image" src="/{{item.image}}" alt="Image for {{ item.title }}" class="card-img-top">
@@ -14,7 +15,8 @@
         <button class="btn btn-danger" onclick="deleteItem({{item.pid}})">Delete</button>
         <a class="btn btn-primary" href="{{ url_for('inventory') }}">Back</a>
     </div>
-    <form action="{{ url_for('edit_item', item_id=item.pid) }}" method="POST">
+
+    <form action="{{ url_for('edit_item', item_id=item.pid) }}" method="POST"> <!-- From to edit item details-->
         <div class="details-edit-section">
             <h1>Edit Item</h1>
                 <div class="form-group">
@@ -33,7 +35,7 @@
                         <option value="On hold">On Hold</option>
                     </select>
 
-                    <select class="form-select" value="{{item.condition}}" name="condition" aria-label="item condition select">
+                    <select class="form-select" name="condition" aria-label="item condition select">
                         <option value="New">New, Sealed</option>
                         <option value="CIB">CIB</option>
                         <option value="Loose">Loose</option>
@@ -45,14 +47,15 @@
 
 </div>
 
+<!-- 
 <script>
     document.getElementById('itemForm').addEventListener('submit', function(event) {
         document.getElementById('submitButton').disabled = true; // Disable submit button to prevent double submission
     });
-</script>
+</script> -->
 
-
-<script type="text/javascript">
+<!-- Delete function for the items -->
+<script type="text/javascript"> 
     function deleteItem(pid) {
         fetch('{{url_for("delete", pid=pid)}}' + pid, {
             method: 'DELETE'

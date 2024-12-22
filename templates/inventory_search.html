@@ -1,3 +1,4 @@
+<!-- Page for inventory search-->
 {% extends "base.html" %}
 
 {%block title%}Inventory Page{%endblock%}
@@ -41,12 +42,13 @@
     </div>
 </div>
 
-<script>
+<!-- <script>
     document.getElementById('itemForm').addEventListener('submit', function(event) {
         document.getElementById('submitButton').disabled = true; // Disable submit button to prevent double submission
     });
-</script>
+</script> -->
 
+<!-- Delete item function-->
 <script type="text/javascript">
     function deleteItem(pid) {
         fetch('{{url_for("delete", pid=pid)}}' + pid, {

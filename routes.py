@@ -10,9 +10,9 @@ def compress_image(image_path):
     with Image.open(image_path) as img:
         try:
             exif = img._getexif()
-            if exif is not None:
+            if exif is not None: # if we don't have metadata
                 for tag, value in exif.items():
-                    if ExifTags.TAGS.get(tag) == 'Orientation':
+                    if ExifTags.TAGS.get(tag) == 'Orientation': # For some reason images are rotated sometimes, so we rotate it back
                         if value == 3:
                             img = img.rotate(180, expand=True)
                         elif value == 6:
@@ -26,25 +26,23 @@ def compress_image(image_path):
 
         img = img.convert('RGB')  # Ensure the image is in RGB mode (for .jpg compression)
         img.thumbnail((800, 800))  # Resize the image (maximum size 800x800px)
-        img.save(image_path, quality=85, optimize=True) 
+        img.save(image_path, quality=85, optimize=True) # Save image 
 
 def register_routes(app, db, bcrypt):
-    @app.route('/')
+    @app.route('/') # home page technically
     def index():    
-        
-
         return render_template('index.html' )
     
     @app.route('/register', methods=['GET', 'POST'])
-    def register():
+    def register(): # user registration
         if request.method == 'GET':
             return render_template('register.html')        
         elif request.method == 'POST':
             username = request.form.get('username')           
             password = request.form.get('password')  
-            second_password = request.form.get('password-confirm')
-            if (password == second_password):
-                hashed_password = bcrypt.generate_password_hash(password)
+            second_password = request.form.get('password-confirm') # Password confirmation
+            if (password == second_password): 
+                hashed_password = bcrypt.generate_password_hash(password) # password encryption
 
                 user = User(username=username, password=hashed_password)
 
@@ -54,7 +52,6 @@ def register_routes(app, db, bcrypt):
                 return redirect(url_for('index'))
             else:
                 return 'Passwords don''t match'
-    
 
     @app.route('/login', methods=['GET', 'POST'])
     def login():
@@ -64,20 +61,20 @@ def register_routes(app, db, bcrypt):
             username = request.form.get('username')           
             password = request.form.get('password')  
 
-            user = User.query.filter(User.username == username).first()
+            user = User.query.filter(User.username == username).first() 
 
-            if bcrypt.check_password_hash(user.password, password):
+            if bcrypt.check_password_hash(user.password, password): # Verify user login information
                 login_user(user)
                 return redirect(url_for('index'))
             else:
                 return 'Failed'
 
-    @app.route('/logout')
+    @app.route('/logout') # Logout user
     def logout():
         logout_user()
         return redirect(url_for('login'))    
     
-    @app.route('/inventory_search', methods=['GET','POST'])
+    @app.route('/inventory_search', methods=['GET','POST']) # Search inside the inventory
     @login_required
     def inventory_search():   
         query = request.args.get('query', '')  # Get search query from URL
@@ -94,15 +91,15 @@ def register_routes(app, db, bcrypt):
 
         return render_template('inventory_search.html',items=items)
         
-    @app.route('/inventory', methods=['GET', 'POST'])
+    @app.route('/inventory', methods=['GET', 'POST']) # inventory page
     @login_required
     def inventory():
         if request.method == 'GET':
-            items = Item.query.filter_by(user_id=current_user.uid).all()
+            items = Item.query.filter_by(user_id=current_user.uid).all() # find all items cretaed by currently logged in user
             # items = Item.query.all()
             return render_template('inventory.html', items=items)
 
-        elif request.method == 'POST':
+        elif request.method == 'POST': # if we are creating a new item
             invRef = request.form.get('invRef')
             title = request.form.get('title')
             price = request.form.get('price')
@@ -122,7 +119,7 @@ def register_routes(app, db, bcrypt):
                 compress_image(image_filename)
 
             else:
-            # Default image
+            # Default image if no image is provided
                 image_filename = "static/img/no_image.png"
 
             # Save the item to the database
@@ -133,7 +130,7 @@ def register_routes(app, db, bcrypt):
             flash("Item created successfully!", "success")
             return redirect(url_for('inventory'))
     
-    @app.route('/delete/<pid>', methods=['DELETE'])
+    @app.route('/delete/<pid>', methods=['DELETE']) # delete item based on it's pid
     @login_required
     def delete(pid):
         item = Item.query.get(pid)
@@ -156,10 +153,10 @@ def register_routes(app, db, bcrypt):
 
         return render_template('index.html', items=items)
     
-    @app.route('/details/<int:pid>')
+    @app.route('/details/<int:pid>') # Details about the item
     @login_required
     def details(pid):
-        # Fetch the item from the database by its primary key (pid)
+        # Fetch the item from the database by its pid
         item = Item.query.get(pid)
 
         # If item doesn't exist, redirect or show an error
@@ -169,7 +166,7 @@ def register_routes(app, db, bcrypt):
         # Pass the item to the template
         return render_template('details.html', item=item)
     
-    @app.route('/edit_item/<int:item_id>', methods=['GET', 'POST'])
+    @app.route('/edit_item/<int:item_id>', methods=['GET', 'POST']) # Page to edit item
     @login_required
     def edit_item(item_id):
         # Retrieve the specific item
@@ -193,5 +190,4 @@ def register_routes(app, db, bcrypt):
 
         # Render edit form with existing item data
         return redirect(url_for('inventory'))
-
     

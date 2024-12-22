@@ -6,33 +6,33 @@ from flask_bcrypt import Bcrypt
 from flask import redirect, url_for
 import os
 
-UPLOAD_FOLDER = 'static/img'  # Define where to save uploaded files
-ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
+UPLOAD_FOLDER = 'static/img'  # Images are saved here
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'} # Allowed image extensions
 
-db = SQLAlchemy()
+db = SQLAlchemy() # Initialize database
 
 def create_app():
     app = Flask(__name__, template_folder='templates', static_folder='static')
-    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-    app.secret_key = os.urandom(24) #change it later, for sure
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///./gameStore.db'
+    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER 
+    app.secret_key = os.urandom(24) #change it later, for sure 
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///./gameStore.db' # Access to local database
 
     db.init_app(app)
 
     login_manager = LoginManager()
     login_manager.init_app(app)
 
-    from models import User
+    from models import User # import user model
 
     @login_manager.user_loader    
     def load_user(uid):
         return User.query.get(uid)
     
-    @login_manager.unauthorized_handler
+    @login_manager.unauthorized_handler # If user doesn't have access to certain pages
     def unauthorized_callback():
         return redirect(url_for('index'))
 
-    bcrypt = Bcrypt(app)
+    bcrypt = Bcrypt(app) # password encryption
 
     from routes import register_routes
     register_routes(app, db, bcrypt)

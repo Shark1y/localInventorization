@@ -13,7 +13,7 @@ class Item(db.Model):
     image = db.Column(db.String(255), default='static/img/no_picture.png', nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.uid'), nullable=False)  # Link to the User model
 
-    user = db.relationship('User', backref='items', lazy=True)  # Create relationship to access item's creator
+    user = db.relationship('User', backref='items', lazy=True)  # Relationship to access item's creator
 
     def __repr__(self):
         return f'Title:{self.title},  asking price: {self.price}'
@@ -23,7 +23,7 @@ class User(db.Model, UserMixin):
 
     uid = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String, nullable=False)
-    password = db.Column(db.String, nullable=False)
+    password = db.Column(db.String, nullable=False) # Hashed later
 
     def __repr__(self):
         return f'Username:{self.username}'

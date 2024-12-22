@@ -5,6 +5,7 @@
 {%block content%}
 
 
+<!-- Form to add new item to the inventory-->
 <form id="itemForm" action="{{url_for('inventory')}}" method="POST" enctype="multipart/form-data">
     <h3>Add New Item</h3>
     <div class="form-group">
@@ -15,7 +16,8 @@
         <input type="text" class="form-control" name="title" placeholder="Title" required="required"><br/>
         
         <input type="number" class="form-control" name="price" placeholder="Price" required="required"><br/>
-         <small class="text-muted">Internal Inventory Number for future distinguishing</small>
+        
+        <small class="text-muted">Internal Inventory Number for future distinguishing</small>
         <input type="text" class="form-control" name="invRef" placeholder="Inventory Reference" required="required"><br/>
         
         <select class="form-select" name="status" aria-label="item status select">
@@ -36,6 +38,7 @@
 
 <h1 class="inventory-greeting">Inventory</h1>
 
+<!-- Inventory items showcase-->
 <div class="container inventory-showcase">
     <div class="row">
         {% if items %}
@@ -45,8 +48,8 @@
                         <div class="card-body">
                             <img class="card-img-top" src="{{ item.image }}" alt="Image for {{ item.title }}" onerror="this.style.display='none'">
                             <h5 class="card-title">{{ item.title }}</h5>
-                            <h6 class="text-muted">{{item.condition}}</h6>
-                            <h6 class="card-subtitle mb-2 text-muted">Inventory Reference: {{ item.invRef }}</h6>
+                            <h6 class="card-text">{{item.condition}}</h6>
+                            <h6 class="card-subtitle mb-2">Inventory Reference: {{ item.invRef }}</h6>
                             <p class="card-text">Selling for: {{ item.price }}$</p>
                             <p class="card-text">Status: {{item.status}}</p>
                             <button class="btn btn-danger" onclick="deleteItem({{item.pid}})">Delete</button>
@@ -62,12 +65,13 @@
 </div>
 
 
-<script>
+<!-- <script>
     document.getElementById('itemForm').addEventListener('submit', function(event) {
         document.getElementById('submitButton').disabled = true; 
     });
-</script>
+</script> -->
 
+<!-- Function to delete item-->
 <script type="text/javascript">
     function deleteItem(pid) {
         fetch('{{url_for("delete", pid=pid)}}' + pid, {
