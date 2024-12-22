@@ -24,3 +24,12 @@ An inventory search is present and the system looks up items based on the string
 Item details allow you to see details on a separate page and edit the details if needed. 
 
 More functions are coming, however at the current stage project fully fullfills my needs. Future docker integration and stand-alone deployment will be implemented. 
+
+How to use:
+1) Copy the repository and cd into the directory of the application
+2) Run commands that are required:
+   a) pip install -r ./requirements.txt
+   b) flask db init
+   c) ./run.py
+3) Command line should show you the ip address and system is ready to use
+*In the future docker container is coming for the ease of use*
