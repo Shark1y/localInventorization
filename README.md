@@ -1,4 +1,4 @@
-Due to my hobby of game collecting and trading, I ran into a problem of inventorization. Some games are sitting in the bubble wrap to preserve them for later grading/tradng. Some are just too valuable and need to be sold. Getting a SQL database is good, however interface is not intuitive. Getting something in the cloud is convinitent, yet I don't like sharing anything with someone as well as pictures and prices. 
+Due to my hobby of game collecting and trading, I ran into a problem of inventorization. Some games are sitting in the bubble wrap to preserve them for later grading/trading. Some are just too valuable and need to be sold. Setting up a SQL database is good, however interface is not intuitive for daily use (as well as not as fast). Getting something in the cloud is convinitent, yet I don't like sharing anything with someone as well as pictures and prices. 
 
 Paying money for my basic needs is not feasible, so creating my own solution was the choice. 
 
