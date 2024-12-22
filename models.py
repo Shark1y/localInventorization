@@ -11,6 +11,9 @@ class Item(db.Model):
     condition = db.Column(db.Text, nullable=False)
     status = db.Column(db.Text(32))
     image = db.Column(db.String(255), default='static/img/no_picture.png', nullable=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.uid'), nullable=False)  # Link to the User model
+
+    user = db.relationship('User', backref='items', lazy=True)  # Create relationship to access item's creator
 
     def __repr__(self):
         return f'Title:{self.title},  asking price: {self.price}'

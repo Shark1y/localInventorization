@@ -39,20 +39,6 @@ def create_app():
 
     migrate = Migrate(app, db)
 
-
-    
-    @app.before_request
-    def create_tables_and_add_placeholder():
-        # Create all tables if they don't exist yet
-        db.create_all()
-
-        # Check if the "items" table is empty and add a placeholder if necessary
-        from models import Item  # Import your model here to avoid circular import issues
-        if not Item.query.first():  # If no items in the table
-            placeholder_item = Item(invRef='Potentially your first item!', title='Inventory can''t be empty :)', price=320, condition="New", image="static/img/no_image.png")
-            db.session.add(placeholder_item)
-            db.session.commit()
-
     return app
 
 def allowed_file(filename):

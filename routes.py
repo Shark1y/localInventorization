@@ -98,7 +98,8 @@ def register_routes(app, db, bcrypt):
     @login_required
     def inventory():
         if request.method == 'GET':
-            items = Item.query.all()
+            items = Item.query.filter_by(user_id=current_user.uid).all()
+            # items = Item.query.all()
             return render_template('inventory.html', items=items)
 
         elif request.method == 'POST':
@@ -125,7 +126,7 @@ def register_routes(app, db, bcrypt):
                 image_filename = "static/img/no_image.png"
 
             # Save the item to the database
-            item = Item(invRef=invRef, condition=condition, status=status, title=title, price=price, image=image_filename)
+            item = Item(invRef=invRef, user_id=current_user.uid, condition=condition, status=status, title=title, price=price, image=image_filename)
             db.session.add(item)
             db.session.commit()
 
