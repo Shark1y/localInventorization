@@ -97,7 +97,19 @@ def register_routes(app, db, bcrypt):
         if request.method == 'GET':
             items = Item.query.filter_by(user_id=current_user.uid).all() # find all items cretaed by currently logged in user
             # items = Item.query.all()
-            return render_template('inventory.html', items=items)
+            filter_option = request.args.get('filter', 'all')  # Default to 'all'
+
+            # Query items based on the filter
+            if filter_option == 'In-Stock':
+                items = Item.query.filter_by(user_id=current_user.uid, status='In-Stock').all()
+            elif filter_option == 'Sold':
+                items = Item.query.filter_by(user_id=current_user.uid, status='Sold').all()
+            elif filter_option == 'On Hold':
+                items = Item.query.filter_by(user_id=current_user.uid, status='On Hold').all()
+            else:  # Show all items
+                items = Item.query.filter_by(user_id=current_user.uid).all()
+
+            return render_template('inventory.html', items=items, filter=filter_option)
 
         elif request.method == 'POST': # if we are creating a new item
             invRef = request.form.get('invRef')

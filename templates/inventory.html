@@ -10,7 +10,7 @@
     <h3>Add New Item</h3>
     <div class="form-group">
         
-        <small class="text-muted">Upload picture to identify items easier</small>
+        <small class="text-muted">Upload picture to identify items easier (only .jpeg .png .jpg are allowed)</small>
         <input type="file" class="form-control" name="image" accept="image/*"><br/>
 
         <input type="text" class="form-control" name="title" placeholder="Title" required="required"><br/>
@@ -21,9 +21,9 @@
         <input type="text" class="form-control" name="invRef" placeholder="Inventory Reference" required="required"><br/>
         
         <select class="form-select" name="status" aria-label="item status select">
-            <option value="In stock">In Stock</option>
+            <option value="In-Stock">In-Stock</option>
             <option value="Sold">Sold</option>
-            <option value="On hold">On Hold</option>
+            <option value="On Hold">On Hold</option>
         </select>
 
         <select class="form-select" name="condition" aria-label="item condition select">
@@ -37,6 +37,15 @@
 </form>
 
 <h1 class="inventory-greeting">Inventory</h1>
+
+<div class="container mt-4">
+    <div class="btn-group mb-3" role="group">
+        <a href="{{ url_for('inventory', filter='all') }}" class="btn btn-light {% if filter == 'all' %}active{% endif %}">All</a>
+        <a href="{{ url_for('inventory', filter='In-Stock') }}" class="btn btn-light {% if filter == 'In-Stock' %}active{% endif %}">In-Stock</a>
+        <a href="{{ url_for('inventory', filter='Sold') }}" class="btn btn-light {% if filter == 'Sold' %}active{% endif %}">Sold</a>
+        <a href="{{ url_for('inventory', filter='On Hold') }}" class="btn btn-light {% if filter == 'On Hold' %}active{% endif %}">On-Hold</a>
+    </div>    
+</div>
 
 <!-- Inventory items showcase-->
 <div class="container inventory-showcase">
@@ -59,7 +68,7 @@
                 </div>
             {% endfor %}
         {% else %}
-            <p>No items in your inventory yet! Use the form above to add one.</p>
+            <h3 class="card-body text-muted">No items in your inventory yet! Use the form above to add one.</h3>
         {% endif %}
     </div>
 </div>
