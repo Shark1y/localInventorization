@@ -12,7 +12,7 @@ ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'} # Allowed image extensions
 db = SQLAlchemy() # Initialize database
 
 def create_app():
-    app = Flask(__name__, template_folder='templates', static_folder='static')
+    app = Flask(__name__, static_folder='static', template_folder='templates')
     app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER 
     app.secret_key = os.urandom(24) #change it later, for sure 
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///./gameStore.db' # Access to local database
