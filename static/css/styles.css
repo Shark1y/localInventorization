@@ -10,40 +10,52 @@
     text-align: center;
 }
 
+.home-welcoming{
+    padding: 20px;
+   text-align: center;
+}
+
 .inventory-showcase {
     padding:35px;
 }
 
+.home-navigation img {
+    padding: 20px;
+}
+
+.home-navigation{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+    text-align: center;
+}
+
 .card {
+    min-height: 650px;
     height: auto; /* Lock the height of the card */
     display: flex;
     flex-direction: column; /* Ensures proper alignment of content */
     justify-content: space-between; /* Distributes content evenly */
     overflow: hidden; /* Prevents overflow issues */
+    text-align: center; /* Optional: Aligns content in the center */
 }
 
 .card-body {
     text-align: center; /* Optional: Aligns content in the center */
 }
 
-.inventory-welcoming-link {
-    text-decoration: none;
+.card-buttons{
+    margin-bottom: 10px;
 }
 
-.welcome-sign {
-    padding-top: 15px;
-    text-align: center;
+.inventory-welcoming-link {
+    text-decoration: none;
 }
 
 .search-form{
     padding:35px;
     align-content: center;
-}
-
-.home-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 40px;  /* Adjust the value to control the space between buttons */
 }
 
 .details-card{

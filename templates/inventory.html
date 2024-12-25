@@ -58,9 +58,11 @@
                             <img class="card-img-top" src="{{ item.image }}" alt="Image for {{ item.title }}" onerror="this.style.display='none'">
                             <h5 class="card-title">{{ item.title }}</h5>
                             <h6 class="card-text">{{item.condition}}</h6>
-                            <h6 class="card-subtitle mb-2">Inventory Reference: {{ item.invRef }}</h6>
-                            <p class="card-text">Selling for: {{ item.price }}$</p>
-                            <p class="card-text">Status: {{item.status}}</p>
+                            <h6 class="card-text">Inventory Reference: {{ item.invRef }}</h6>
+                            <h6 class="card-text">Selling for: {{ item.price }}$</h6>
+                            <h6 class="card-text">Status: {{item.status}}</h6>
+                        </div>
+                        <div class="card-buttons">
                             <button class="btn btn-danger" onclick="deleteItem({{item.pid}})">Delete</button>
                             <a href="{{ url_for('details', pid=item.pid) }}" class="btn btn-secondary">Details</a>
                         </div>

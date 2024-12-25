@@ -9,9 +9,9 @@
     <div class="item-details">
         <img class="details-image" src="/{{item.image}}" alt="Image for {{ item.title }}" class="card-img-top">
         <h2 class="card-title">Title: {{ item.title }}</h2>
-        <h3>Current stated condition: {{item.condition}}</h3>
-        <h3 class="card-subtitle mb-2 text-muted">Current Inventory Reference: {{ item.invRef }}</h3>
-        <h3 class="card-subtitle mb-2 text-muted">Selling for: {{ item.price }}$</h3>
+        <h3 class="card-text">Current stated condition: {{item.condition}}</h3>
+        <h3 class="card-text">Current Inventory Reference: {{ item.invRef }}</h3>
+        <h3 class="card-text">Selling for: {{ item.price }}$</h3>
         <button class="btn btn-danger" onclick="deleteItem({{item.pid}})">Delete</button>
         <a class="btn btn-primary" href="{{ url_for('inventory') }}">Back</a>
     </div>
@@ -30,9 +30,9 @@
                     <input type="text" class="form-control" name="invRef" value="{{item.invRef}}" required="required"><br/>
                     
                     <select class="form-select" name="status" aria-label="item status select">
-                        <option value="In-Stock">In-Stock</option>
-                        <option value="Sold">Sold</option>
-                        <option value="On Hold">On Hold</option>
+            <option value="In-Stock">In-Stock</option>
+            <option value="Sold">Sold</option>
+            <option value="On Hold">On Hold</option>
                     </select>
 
                     <select class="form-select" name="condition" aria-label="item condition select">

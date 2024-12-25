@@ -6,11 +6,39 @@
 
 <!-- Welcoming page, still needs work-->
 
-<h1 class="welcome-sign">Welcome!</h1>
-<div class="home-buttons d-flex justify-content-center">
-    <a class="btn btn-info btn-lg inventory-welcoming-link" href="{{ url_for('inventory') }}">Inventory</a>
-    <a class="btn btn-secondary btn-lg inventory-welcoming-link" href="{{ url_for('inventory_search') }}">Inventory Search</a>
-</div>
+{% if current_user.is_authenticated %}
+    <div class="home-welcoming">
+        <h1 class="welcome-sign">Welcome!</h1>
+        <h1 class="welcome-sign">Quick Links:</h1>
+    </div>
 
+
+    <div class="home-navigation">
+        <div class="home-buttons">
+            <a class="btn btn-info btn-lg inventory-welcoming-link" href="{{ url_for('inventory') }}">Inventory</a>
+            <a class="btn btn-secondary btn-lg inventory-welcoming-link" href="{{ url_for('inventory_search') }}">Inventory Search</a>
+        </div>
+        <div class="home-navigation-pics">
+            <a href="https://cgagrading.com" target="_blank">
+                <img style="width: 10%;" class="home-quick-pics" src="/static/img/cga_logo.png" alt="cga-logo" >
+            </a>
+            <a href="https://www.ebay.com" target="_blank">
+                <img style="width: 10%;" class="home-quick-pics" src="/static/img/ebay_logo.png" alt="ebay-logo" >
+            </a>
+            <a href="https://www.pricecharting.com" target="_blank">
+                <img style="width: 10%;" class="home-quick-pics" src="/static/img/chart_logo.png" alt="chart-logo" >
+            </a>
+            <a href="https://www.ha.com" target="_blank">
+                <img style="width: 10%;" class="home-quick-pics" src="/static/img/ha_logo.png" alt="ha-logo" >
+            </a>
+        </div>
+    </div>
+{% else %}
+    <div class="home-welcoming">
+        <h1 class="home-welcoming">Please Log In or Sign Up Before Using the System</h1>
+        <a class="home-welcoming btn btn-primary" href="{{ url_for('login') }}">Login</a>
+    </div>
+    
+{% endif %}
 
 {%endblock%}
