@@ -70,3 +70,10 @@
     width: 40%;
     margin: auto;
 }
+
+.user-edit-form{
+    border: 50px; /* Black border with 50px width */
+    padding: 20px;  /* Optional: Add some padding inside the form */
+    margin: 20px;   /* Optional: Add margin around the form */
+    border-radius: 10px; /* Optional: Softened corners */
+}

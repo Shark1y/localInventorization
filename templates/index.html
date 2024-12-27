@@ -8,7 +8,7 @@
 
 {% if current_user.is_authenticated %}
     <div class="home-welcoming">
-        <h1 class="welcome-sign">Welcome!</h1>
+        <h1 class="welcome-sign">{{user.username}}, Welcome!</h1>
         <h1 class="welcome-sign">Quick Links:</h1>
     </div>
 

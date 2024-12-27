@@ -1,0 +1,26 @@
+<!-- Individual item details page-->
+{% extends "base.html" %}
+
+{% block title %}User Profile{% endblock %}
+
+{% block content %}
+
+<div class="user-edit-form">
+    <form class="form-control" action="{{url_for('profile')}}" method="POST">
+        <small class="text-muted">Username</small>
+        <input type="text" class="form-control" name="username" placeholder="{{user.username}}" readonly><br/>
+
+        <h3>Change Password</h3>
+        <small class="text-muted">New Password:</small>
+        <input type="text" class="form-control" name="password"><br/>
+
+        <small class="text-muted">Confirm New Password:</small>
+        <input type="text" class="form-control" name="password-confirm"><br/>
+
+        <input type="submit" value="Save" class="btn btn-primary btn-block mb-4">
+    </form>
+</div>
+
+
+
+{% endblock %}

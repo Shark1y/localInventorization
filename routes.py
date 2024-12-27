@@ -31,7 +31,7 @@ def compress_image(image_path):
 def register_routes(app, db, bcrypt):
     @app.route('/') # home page technically
     def index():    
-        return render_template('index.html' )
+        return render_template('index.html',user=current_user)
     
     @app.route('/register', methods=['GET', 'POST'])
     def register(): # user registration
@@ -198,7 +198,8 @@ def register_routes(app, db, bcrypt):
         if request.method == 'POST':
             # Update item details from form submission
             item.title = request.form['title']
-            item.price = float(request.form['price'])
+            item.asking = float(request.form['asking'])
+            item.bought = float(request.form['bought'])
             item.invRef = request.form['invRef']
             item.condition = request.form['condition']
             item.status = request.form['status']
@@ -214,3 +215,20 @@ def register_routes(app, db, bcrypt):
         # Render edit form with existing item data
         return redirect(url_for('inventory'))
     
+    @app.route('/profile', methods=['GET', 'POST']) # home page technically
+    @login_required
+    def profile():
+        if request.method == 'GET':
+            return render_template('profile.html', user=current_user)        
+        elif request.method == 'POST':
+            password = request.form.get('password')  
+            second_password = request.form.get('password-confirm') # Password confirmation
+            if (password == second_password): 
+                hashed_password = bcrypt.generate_password_hash(password) # password encryption
+                current_user.password = hashed_password
+
+                db.session.commit()
+                flash('Password changed successfully!')
+                return redirect(url_for('profile', user=current_user))
+            else:
+                return 'Passwords don''t match'    
