@@ -115,17 +115,17 @@ def register_routes(app, db, bcrypt):
             invRef = request.form.get('invRef')
             title = request.form.get('title')
             asking = request.form.get('asking')
+            if not asking:
+                asking = 0.0
             bought = request.form.get('bought')
+            if not bought:
+                bought = 0.0
             image = request.files.get('image') 
             status = request.form.get('status')
             condition = request.form.get('condition')
 
             if not(invRef):
                 invRef = 'N/A'
-
-            if not (title):
-                flash("Title can't be empty!", "error")
-                return redirect(url_for('inventory'))
 
             image_filename = None
             if image and allowed_file(image.filename):
@@ -203,6 +203,7 @@ def register_routes(app, db, bcrypt):
             item.invRef = request.form['invRef']
             item.condition = request.form['condition']
             item.status = request.form['status']
+            item.note = request.form['note']
 
             try:
                 db.session.commit()

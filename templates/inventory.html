@@ -8,39 +8,65 @@
 <!-- Form to add new item to the inventory-->
 <form id="itemForm" action="{{url_for('inventory')}}" method="POST" enctype="multipart/form-data">
     <h3>Add New Item</h3>
+
+    <div class="form-group row">
+        <label for="item-image" class="col-sm-2 col-form-label">Upload picture to identify items easier (only .jpeg .png .jpg are allowed):</label>
+        <div class="col-sm-10">
+            <input type="file" class="form-control" name="image" accept="image/*" id="item-image"><br/>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="item-title" class="col-sm-2 col-form-label">Display title (can't be empty):</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="title" placeholder="Title" required="required" id="item-title"><br/>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="item-bought" class="col-sm-2 col-form-label">Price you got this item for:</label>
+        <div class="col-sm-10">
+            <input type="number" class="form-control" name="bought" placeholder="Bought For" id="item-bought"><br/>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="item-asking" class="col-sm-2 col-form-label">Price you are selling item for:</label>
+        <div class="col-sm-10">
+            <input type="number" class="form-control" name="asking" placeholder="Asking Price" id="item-asking"><br/>
+        </div>
+    </div>
+          
+    <div class="form-group row">
+        <label for="item-invRef" class="col-sm-2 col-form-label">Internal inventory number for future distinguishing:</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="invRef" placeholder="Inventory Reference" id="item-invRef"><br/>
+        </div>
+    </div>
+
     <div class="form-group">
-        
-        <small class="text-muted">Upload picture to identify items easier (only .jpeg .png .jpg are allowed)</small>
-        <input type="file" class="form-control" name="image" accept="image/*"><br/>
-
-        <small class="text-muted">Display title (can't be empty)</small>
-        <input type="text" class="form-control" name="title" placeholder="Title" required="required"><br/>
-        
-        <small class="text-muted">Price you got this item for</small>
-        <input type="number" class="form-control" name="bought" placeholder="Bought For"><br/>
-
-        <small class="text-muted">Price you are selling item for</small>
-        <input type="number" class="form-control" name="asking" placeholder="Asking Price"><br/>
-        
-        <small class="text-muted">Internal inventory number for future distinguishing</small>
-        <input type="text" class="form-control" name="invRef" placeholder="Inventory Reference"><br/>
-        
-        <select class="form-select" name="status" aria-label="item status select">
+        <label for="statusSelect">Select Item Status</label>
+        <select class="form-control" name="status" id="statusSelect">
             <option value="In-Stock">In-Stock</option>
             <option value="Sold">Sold</option>
             <option value="On Hold">On Hold</option>
         </select>
+      </div>
 
-        <select class="form-select" name="condition" aria-label="item condition select">
+
+    <div class="form-group">
+        <label for="conditionSelect">Select Item Condition</label>
+        <select class="form-control" name="condition" id="conditionSelect">
             <option value="New">New, Sealed</option>
             <option value="Used">Used</option>
             <option value="Damaged">Damaged</option>
             <option value="CIB">CIB</option>
             <option value="Loose">Loose</option>
         </select>
-
-        <input type="submit" id="submitButton" class="btn btn-success" value="Add Item">
     </div>
+
+    <input type="submit" id="submitButton" class="btn btn-success" value="Add Item">
+    
 </form>
 
 <h1 class="inventory-greeting">Inventory</h1>

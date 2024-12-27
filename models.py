@@ -12,6 +12,7 @@ class Item(db.Model):
     condition = db.Column(db.Text)
     status = db.Column(db.Text(32))
     image = db.Column(db.String(255), default='static/img/no_picture.png')
+    note = db.Column(db.String(512))
     user_id = db.Column(db.Integer, db.ForeignKey('users.uid'), nullable=False)  # Link to the User model
 
     user = db.relationship('User', backref='items', lazy=True)  # Relationship to access item's creator

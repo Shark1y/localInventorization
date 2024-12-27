@@ -21,18 +21,44 @@
         <div class="details-edit-section">
             <h1>Edit Item</h1>
                 <div class="form-group">
-                    <small class="text-muted">Item title</small>
-                    <input type="text" class="form-control" name="title" value="{{item.title}}" required="required"><br/>
+
+                    <div class="form-group row">
+                        <label for="item-title" class="col-sm-2 col-form-label">Item Title:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="title" value="{{item.title}}" required="required" id="item-title"><br/>    
+                        </div>
+                    </div>
+
                     
-                    <small class="text-muted">Asking price</small>
-                    <input type="number" class="form-control" name="asking" value="{{item.asking}}"><br/>
-                    
-                    <small class="text-muted">Sourcing price</small>
-                    <input type="number" class="form-control" name="bought" value="{{item.bought}}"><br/>
-                    
-                    <small class="text-muted">Internal Inventory Number</small>
-                    <input type="text" class="form-control" name="invRef" value="{{item.invRef}}"><br/>
-                    
+                    <div class="form-group row">
+                        <label for="item-asking" class="col-sm-2 col-form-label">Asking price:</label>
+                        <div class="col-sm-10">
+                            <input type="number" class="form-control" name="asking" value="{{item.asking}}" id="item-asking"><br/>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="item-bought" class="col-sm-2 col-form-label">Bought price:</label>
+                        <div class="col-sm-10">
+                            <input type="number" class="form-control" name="bought" value="{{item.bought}}" id="item-bought"><br/>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="item-invRef" class="col-sm-2 col-form-label">Inventory Reference:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="invRef" value="{{item.invRef}}" id="item-invRef"><br/>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="item-note" class="col-sm-2 col-form-label">Additional note about the item:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="note" value="{{item.note}}" id="item-note"><br/>
+                        </div>
+                    </div>
+
+
                     <select class="form-select" name="status" aria-label="item status select">
                         <option value="In-Stock">In-Stock</option>
                         <option value="Sold">Sold</option>
