@@ -114,13 +114,17 @@ def register_routes(app, db, bcrypt):
         elif request.method == 'POST': # if we are creating a new item
             invRef = request.form.get('invRef')
             title = request.form.get('title')
-            price = request.form.get('price')
+            asking = request.form.get('asking')
+            bought = request.form.get('bought')
             image = request.files.get('image') 
             status = request.form.get('status')
             condition = request.form.get('condition')
 
-            if not (title and price and invRef):
-                flash("All fields are required!", "error")
+            if not(invRef):
+                invRef = 'N/A'
+
+            if not (title):
+                flash("Title can't be empty!", "error")
                 return redirect(url_for('inventory'))
 
             image_filename = None
@@ -135,7 +139,14 @@ def register_routes(app, db, bcrypt):
                 image_filename = "static/img/no_image.png"
 
             # Save the item to the database
-            item = Item(invRef=invRef, user_id=current_user.uid, condition=condition, status=status, title=title, price=price, image=image_filename)
+            item = Item(invRef=invRef, 
+                        user_id=current_user.uid, 
+                        condition=condition, 
+                        status=status, 
+                        title=title, 
+                        asking=asking, 
+                        bought=bought,
+                        image=image_filename)
             db.session.add(item)
             db.session.commit()
 

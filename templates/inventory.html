@@ -13,12 +13,17 @@
         <small class="text-muted">Upload picture to identify items easier (only .jpeg .png .jpg are allowed)</small>
         <input type="file" class="form-control" name="image" accept="image/*"><br/>
 
+        <small class="text-muted">Display title (can't be empty)</small>
         <input type="text" class="form-control" name="title" placeholder="Title" required="required"><br/>
         
-        <input type="number" class="form-control" name="price" placeholder="Price" required="required"><br/>
+        <small class="text-muted">Price you got this item for</small>
+        <input type="number" class="form-control" name="bought" placeholder="Bought For"><br/>
+
+        <small class="text-muted">Price you are selling item for</small>
+        <input type="number" class="form-control" name="asking" placeholder="Asking Price"><br/>
         
         <small class="text-muted">Internal Inventory Number for future distinguishing</small>
-        <input type="text" class="form-control" name="invRef" placeholder="Inventory Reference" required="required"><br/>
+        <input type="text" class="form-control" name="invRef" placeholder="Inventory Reference"><br/>
         
         <select class="form-select" name="status" aria-label="item status select">
             <option value="In-Stock">In-Stock</option>
@@ -28,6 +33,8 @@
 
         <select class="form-select" name="condition" aria-label="item condition select">
             <option value="New">New, Sealed</option>
+            <option value="Used">Used</option>
+            <option value="Damaged">Damaged</option>
             <option value="CIB">CIB</option>
             <option value="Loose">Loose</option>
         </select>
@@ -59,7 +66,6 @@
                             <h5 class="card-title">{{ item.title }}</h5>
                             <h6 class="card-text">{{item.condition}}</h6>
                             <h6 class="card-text">Inventory Reference: {{ item.invRef }}</h6>
-                            <h6 class="card-text">Selling for: {{ item.price }}$</h6>
                             <h6 class="card-text">Status: {{item.status}}</h6>
                         </div>
                         <div class="card-buttons">

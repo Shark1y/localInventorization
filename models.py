@@ -5,12 +5,13 @@ class Item(db.Model):
     __tablename__ = 'items'
 
     pid = db.Column(db.Integer, primary_key=True)
-    invRef = db.Column(db.Text, nullable=False)
+    invRef = db.Column(db.Text)
     title = db.Column(db.Text, nullable=False)
-    price = db.Column(db.Integer, nullable=False)
-    condition = db.Column(db.Text, nullable=False)
+    bought = db.Column(db.Text)
+    asking = db.Column(db.Integer)
+    condition = db.Column(db.Text)
     status = db.Column(db.Text(32))
-    image = db.Column(db.String(255), default='static/img/no_picture.png', nullable=True)
+    image = db.Column(db.String(255), default='static/img/no_picture.png')
     user_id = db.Column(db.Integer, db.ForeignKey('users.uid'), nullable=False)  # Link to the User model
 
     user = db.relationship('User', backref='items', lazy=True)  # Relationship to access item's creator

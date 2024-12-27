@@ -8,10 +8,11 @@
     
     <div class="item-details">
         <img class="details-image" src="/{{item.image}}" alt="Image for {{ item.title }}" class="card-img-top">
-        <h2 class="card-title">Title: {{ item.title }}</h2>
-        <h3 class="card-text">Current stated condition: {{item.condition}}</h3>
-        <h3 class="card-text">Current Inventory Reference: {{ item.invRef }}</h3>
-        <h3 class="card-text">Selling for: {{ item.price }}$</h3>
+        <h2 class="card-title">{{ item.title }}</h2>
+        <h4 class="card-text">Current stated condition: {{item.condition}}</h4>
+        <h4 class="card-text">Current Inventory Reference: {{ item.invRef }}</h4>
+        <h4 class="card-text">Bought for: {{ item.bought }}$</h4>
+        <h4 class="card-text">Selling for: {{ item.asking }}$</h4>
         <button class="btn btn-danger" onclick="deleteItem({{item.pid}})">Delete</button>
         <a class="btn btn-primary" href="{{ url_for('inventory') }}">Back</a>
     </div>
@@ -23,16 +24,19 @@
                     <small class="text-muted">Item title</small>
                     <input type="text" class="form-control" name="title" value="{{item.title}}" required="required"><br/>
                     
-                    <small class="text-muted">Selling price</small>
-                    <input type="number" class="form-control" name="price" value="{{item.price}}" required="required"><br/>
+                    <small class="text-muted">Asking price</small>
+                    <input type="number" class="form-control" name="asking" value="{{item.asking}}"><br/>
+                    
+                    <small class="text-muted">Sourcing price</small>
+                    <input type="number" class="form-control" name="bought" value="{{item.bought}}"><br/>
                     
                     <small class="text-muted">Internal Inventory Number</small>
-                    <input type="text" class="form-control" name="invRef" value="{{item.invRef}}" required="required"><br/>
+                    <input type="text" class="form-control" name="invRef" value="{{item.invRef}}"><br/>
                     
                     <select class="form-select" name="status" aria-label="item status select">
-            <option value="In-Stock">In-Stock</option>
-            <option value="Sold">Sold</option>
-            <option value="On Hold">On Hold</option>
+                        <option value="In-Stock">In-Stock</option>
+                        <option value="Sold">Sold</option>
+                        <option value="On Hold">On Hold</option>
                     </select>
 
                     <select class="form-select" name="condition" aria-label="item condition select">
