@@ -9,10 +9,10 @@
     <div class="item-details">
         <img class="details-image" src="/{{item.image}}" alt="Image for {{ item.title }}" class="card-img-top">
         <h2 class="card-title">{{ item.title }}</h2>
-        <h4 class="card-text">Current stated condition: {{item.condition}}</h4>
-        <h4 class="card-text">Current Inventory Reference: {{ item.invRef }}</h4>
-        <h4 class="card-text">Bought for: {{ item.bought }}$</h4>
-        <h4 class="card-text">Selling for: {{ item.asking }}$</h4>
+        <p class="card-text">Current stated condition: {{item.condition}}</p>
+        <p class="card-text">Current Inventory Reference: {{ item.invRef }}</p>
+        <p class="card-text">Bought for: {{ item.bought }}$</p>
+        <p class="card-text">Selling for: {{ item.asking }}$</p>
         <button class="btn btn-danger" onclick="deleteItem({{item.pid}})">Delete</button>
         <a class="btn btn-primary" href="{{ url_for('inventory') }}">Back</a>
     </div>
@@ -21,6 +21,8 @@
         <div class="details-edit-section">
             <h1>Edit Item</h1>
                 <div class="form-group">
+
+
 
                     <div class="form-group row">
                         <label for="item-title" class="col-sm-2 col-form-label">Item Title:</label>

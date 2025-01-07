@@ -21,6 +21,7 @@
 
 .home-navigation img {
     padding: 20px;
+    width: 10%;
 }
 
 .home-navigation{
@@ -39,6 +40,7 @@
     justify-content: space-between; /* Distributes content evenly */
     overflow: hidden; /* Prevents overflow issues */
     text-align: center; /* Optional: Aligns content in the center */
+    width: 100%;
 }
 
 .card-body {
@@ -78,3 +80,55 @@
     border-radius: 10px; /* Optional: Softened corners */
 }
 
+@media (min-width:420px){
+
+    #itemForm {
+        padding: 10px;  /* Optional: Add some padding inside the form */
+        margin: 10px;   /* Optional: Add margin around the form */
+        font-size: 24px;
+    }
+
+    .welcome-sign{
+        font-size: 92px;
+    }
+
+    .home-navigation{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        overflow: hidden;
+        text-align: center;
+    }
+
+    .home-navigation img {
+        width: 30%;
+    }
+
+    .nav-link {
+        font-size: 36px; /* Larger text on mobile */
+        padding: 15px 20px; /* More padding for touch-friendly links */
+    }
+
+    .card {
+        min-height: 300px;
+        height: auto; /* Lock the height of the card */
+        display: flex;
+        flex-direction: column; /* Ensures proper alignment of content */
+        justify-content: space-between; /* Distributes content evenly */
+        overflow: hidden; /* Prevents overflow issues */
+        text-align: center; /* Optional: Aligns content in the center */
+        width: 100%;
+    }
+    
+    .card-body {
+        text-align: center; /* Optional: Aligns content in the center */
+    }
+    
+    .card-buttons{
+        margin-bottom: 15px;
+    }
+
+    .inventory-showcase {
+        padding: 5px;
+    }
+}

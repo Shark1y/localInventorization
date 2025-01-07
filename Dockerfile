@@ -17,5 +17,9 @@ EXPOSE 5000
 ENV FLASK_APP=app.py
 ENV FLASK_RUN_HOST=0.0.0.0
 
+RUN flask db init
+RUN flask db migrate
+RUN flask db upgrade
+
 # Run the Flask application
 CMD ["flask", "run"]
