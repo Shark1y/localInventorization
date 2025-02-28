@@ -198,8 +198,8 @@ def register_routes(app, db, bcrypt):
         if request.method == 'POST':
             # Update item details from form submission
             item.title = request.form['title']
-            item.asking = float(request.form['asking'])
-            item.bought = float(request.form['bought'])
+            item.asking = int(request.form['asking'])
+            item.bought = int(request.form['bought'])
             item.invRef = request.form['invRef']
             item.condition = request.form['condition']
             item.status = request.form['status']
